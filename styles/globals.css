@@ -19,7 +19,7 @@
 
   body {
     @apply bg-grey-450;
-    @apply antialiased leading-none uppercase font-body;
+    @apply antialiased leading-none uppercase text-grey-900 font-body;
     text-rendering: optimizeLegibility;
   }
 }
