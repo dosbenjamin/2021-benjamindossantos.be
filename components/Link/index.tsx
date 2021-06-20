@@ -5,11 +5,17 @@ export type LinkType = {
 
 type LinkProps = Omit<LinkType, 'name'> & {
   children: LinkType['name'] | JSX.Element
+  className?: string
 }
 
-const Link = ({ children, url }: LinkProps) => {
+const Link = ({ children, url, className }: LinkProps) => {
   return (
-    <a className="text-sm" href={url}>{children}</a>
+    <a
+      className={`inline-block text-sm ${className}`}
+      href={url}
+    >
+      {children}
+    </a>
   )
 }
 
