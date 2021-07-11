@@ -2,6 +2,7 @@ module.exports = {
   purge: [
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
+    './hooks/**/*.{ts,tsx}',
   ],
   darkMode: false, // or 'media' or 'class'
   mode: 'jit',
