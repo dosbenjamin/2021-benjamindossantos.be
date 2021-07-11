@@ -1,8 +1,10 @@
 import { gql } from '@apollo/client'
 import client from '../apollo-client'
-// import Head from 'next/head'
+import Head from 'next/head'
 import Header, { HeaderType } from '../components/Header'
 import Link, { LinkType } from '../components/Link'
+import { useReveal } from '../hooks/useReveal'
+import { useEffect } from 'react'
 
 type HomeProps = {
   home: {
@@ -14,18 +16,31 @@ type HomeProps = {
 const Home = ({
   home: { header, socials }
 }: HomeProps) => {
+  const { setReveal, revealClass } = useReveal()
+
+  useEffect(() => { setTimeout(() => setReveal(true), 1000) })
+
   return (
-    <Header content={header} >
-      <ul className="text-right">
-        {socials.map(({ name, url }) => {
-          return (
-            <li key={name}>
-              <Link url={url}>{name}</Link>
-            </li>
-          )
-        })}
-      </ul>
-    </Header>
+    <>
+      <Head>
+        <title>Homepage</title>
+      </Head>
+      <Header content={header}>
+        <ul className="lg:text-right">
+          {socials.map(({ name, url }, index) => {
+            return (
+              <li
+                className={revealClass}
+                style={{transitionDelay: `${(index * 150) + 750}ms`}}
+                key={name}
+              >
+                <Link url={url}>{name}</Link>
+              </li>
+            )
+          })}
+        </ul>
+      </Header>
+    </>
   )
 }
 

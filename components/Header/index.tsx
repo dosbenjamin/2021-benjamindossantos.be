@@ -1,5 +1,7 @@
 import Link, { LinkType } from '../Link'
-import parse, { domToReact, HTMLReactParserOptions } from 'html-react-parser'
+import parse, { domToReact } from 'html-react-parser'
+import { useReveal } from '../../hooks/useReveal'
+import { useEffect } from 'react'
 
 export type HeaderType = {
   title: string
@@ -17,35 +19,31 @@ const Header = ({
   children,
   content: { title, subtitle, description, link }
 }: HeaderProps) => {
-  const options: HTMLReactParserOptions = {
+  const { setReveal, revealClass } = useReveal()
+
+  const cleanDesc = parse(description, {
     replace: ({ attribs, tagName, children }: any) => {
       if (!attribs) return
-
-      if (tagName === 'a') {
-        attribs.class = 'underline'
-      }
-
-      return (
-        <>
-          {domToReact(children)}
-        </>
-      )
+      if (tagName === 'a') attribs.class = 'underline'
+      return <>{domToReact(children)}</>
     }
-  }
+  })
+
+  useEffect(() => { setTimeout(() => setReveal(true), 1000) }, [])
 
   return (
-    <section className="flex">
+    <section className="flex flex-col items-start w-full lg:flex-row">
       <div className="max-w-[8rem]">
-        <h1 className="text-lg">{title}</h1>
+        <h1 className={`text-lg ${revealClass}`}>{title}</h1>
       </div>
-      {(subtitle) && (
-        <div className="ml-4 max-w-[14rem]">
-          <h2>{subtitle}</h2>
-          <p className="mt-2">{parse(description, options)}</p>
+      {subtitle && (
+        <div className="mt-4 max-w-[14rem] lg:mt-0 lg:ml-4">
+          <h2 className={`delay-300 ${revealClass}`}>{subtitle}</h2>
+          <p className={`mt-2 delay-[450ms] ${revealClass}`}>{cleanDesc}</p>
           {link && (
             <Link
               url={link.url}
-              className="mt-2"
+              className={`mt-2 delay-[600ms] ${revealClass}`}
             >
               {link.name}
             </Link>
@@ -53,7 +51,7 @@ const Header = ({
         </div>
       )}
       {children && (
-        <div className="ml-auto">{children}</div>
+        <div className="mt-4 lg:mt-0 lg:ml-auto">{children}</div>
       )}
     </section>
   )
