@@ -22,4 +22,9 @@
     @apply antialiased leading-none uppercase text-grey-900 font-body;
     text-rendering: optimizeLegibility;
   }
+
+  ::selection {
+    @apply text-white;
+    @apply bg-grey-900;
+  }
 }
