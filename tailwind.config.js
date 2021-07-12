@@ -24,8 +24,12 @@ module.exports = {
       'base': 'calc(100% + 1.85vmin)',
       'lg': '1.333rem'
     },
-    extend: {},
+    extend: {
+      transitionProperty: {
+        'transform-opacity': 'transform, opacity'
+      }
+    }
   },
   variants: {},
-  plugins: [],
+  plugins: []
 }

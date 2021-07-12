@@ -18,7 +18,12 @@ const Home = ({
 }: HomeProps) => {
   const { setReveal, revealClass } = useReveal()
 
-  useEffect(() => { setTimeout(() => setReveal(true), 1000) })
+  useEffect(() => {
+    setTimeout(
+      () => setReveal(true),
+      250
+    )
+  }, [])
 
   return (
     <>
@@ -30,7 +35,7 @@ const Home = ({
           {socials.map(({ name, url }, index) => {
             return (
               <li
-                className={revealClass}
+                className={`leading-none ${revealClass}`}
                 style={{transitionDelay: `${(index * 150) + 750}ms`}}
                 key={name}
               >

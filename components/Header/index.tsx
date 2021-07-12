@@ -22,36 +22,53 @@ const Header = ({
   const { setReveal, revealClass } = useReveal()
 
   const cleanDesc = parse(description, {
-    replace: ({ attribs, tagName, children }: any) => {
-      if (!attribs) return
-      if (tagName === 'a') attribs.class = 'underline'
+    replace: ({ children }: any) => {
+      const [, link] = children
+      link.attribs.class = link.tagName && 'inline-block transition-colors duration-1000 ease-out border-b-2 border-transparent hover:border-current'
       return <>{domToReact(children)}</>
     }
   })
 
-  useEffect(() => { setTimeout(() => setReveal(true), 1000) }, [])
+  useEffect(() => {
+    setTimeout(
+      () => setReveal(true),
+      250
+    )
+  }, [])
 
   return (
-    <section className="flex flex-col items-start w-full lg:flex-row">
+    <section className="flex flex-col items-start w-full space-y-4 lg:space-y-0 lg:flex-row">
       <div className="max-w-[8rem]">
         <h1 className={`text-lg ${revealClass}`}>{title}</h1>
       </div>
       {subtitle && (
-        <div className="mt-4 max-w-[14rem] lg:mt-0 lg:ml-4">
-          <h2 className={`delay-300 ${revealClass}`}>{subtitle}</h2>
-          <p className={`mt-2 delay-[450ms] ${revealClass}`}>{cleanDesc}</p>
+        <div className="max-w-[14rem] space-y-2 lg:ml-4">
+          <h2
+            className={`delay-300 ${revealClass}`}
+            style={{transitionDelay: '300ms'}}
+          >
+            {subtitle}
+          </h2>
+          <p
+            className={revealClass}
+            style={{transitionDelay: '450ms'}}
+          >
+            {cleanDesc}
+          </p>
           {link && (
-            <Link
-              url={link.url}
-              className={`mt-2 delay-[600ms] ${revealClass}`}
+            <div
+              className={revealClass}
+              style={{transitionDelay: '600ms'}}
             >
-              {link.name}
-            </Link>
+              <Link url={link.url}>
+                {link.name}
+              </Link>
+            </div>
           )}
         </div>
       )}
       {children && (
-        <div className="mt-4 lg:mt-0 lg:ml-auto">{children}</div>
+        <div className="lg:ml-auto">{children}</div>
       )}
     </section>
   )
