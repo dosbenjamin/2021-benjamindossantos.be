@@ -23,8 +23,10 @@ const Header = ({
 
   const cleanDesc = parse(description, {
     replace: ({ children }: any) => {
-      const [, link] = children
-      link.attribs.class = link.tagName && 'inline-block transition-colors duration-1000 ease-out border-b-2 border-transparent hover:border-current'
+      if (children && children[0].type === 'tag') {
+        const [, link] = children
+        link.attribs.class = link.tagName && 'inline-block transition-colors duration-1000 ease-out border-b-2 border-transparent hover:border-current'
+      }
       return <>{domToReact(children)}</>
     }
   })
