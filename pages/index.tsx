@@ -6,7 +6,7 @@ import Link, { LinkType } from '../components/Link'
 import { useReveal } from '../hooks/useReveal'
 import { useEffect } from 'react'
 
-type HomeProps = {
+type Props = {
   home: {
     header: HeaderType
     socials: LinkType[]
@@ -15,7 +15,7 @@ type HomeProps = {
 
 const Home = ({
   home: { header, socials }
-}: HomeProps) => {
+}: Props) => {
   const { setReveal, revealClass } = useReveal()
 
   useEffect(() => {

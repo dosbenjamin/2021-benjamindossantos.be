@@ -3,7 +3,7 @@ import client from '../apollo-client'
 // import Head from 'next/head'
 import Header, { HeaderType } from '../components/Header'
 
-type NotFoundProps = {
+type Props = {
   notFound: {
     header: HeaderType
   }
@@ -11,7 +11,7 @@ type NotFoundProps = {
 
 const NotFound = ({
   notFound: { header }
-}: NotFoundProps) => {
+}: Props) => {
   return (
     <Header
       content={header}
