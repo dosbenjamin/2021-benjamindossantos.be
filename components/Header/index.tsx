@@ -31,12 +31,7 @@ const Header = ({
     }
   })
 
-  useEffect(() => {
-    setTimeout(
-      () => setReveal(true),
-      250
-    )
-  }, [])
+  useEffect(() => setReveal(true), [])
 
   return (
     <section className="flex flex-col items-start w-full space-y-4 lg:space-y-0 lg:flex-row">

@@ -1,38 +1,34 @@
 import { gql } from '@apollo/client'
 import client from '../apollo-client'
-import Head from 'next/head'
 import Header, { HeaderType } from '../components/Header'
 import Link, { LinkType } from '../components/Link'
+import SEO, { SEOGlobalType, SEOPageType } from '../components/SEO'
 import { useReveal } from '../hooks/useReveal'
 import { useEffect } from 'react'
+import { GetStaticProps } from 'next'
 
 type Props = {
-  home: {
+  page: {
     header: HeaderType
     socials: LinkType[]
+    seo: SEOPageType
+  }
+  global: {
+    seo: SEOGlobalType
   }
 }
 
-const Home = ({
-  home: { header, socials }
-}: Props) => {
+const Home = ({ page, global }: Props) => {
   const { setReveal, revealClass } = useReveal()
 
-  useEffect(() => {
-    setTimeout(
-      () => setReveal(true),
-      250
-    )
-  }, [])
+  useEffect(() => setReveal(true), [])
 
   return (
     <>
-      <Head>
-        <title>Homepage</title>
-      </Head>
-      <Header content={header}>
+      <SEO page={{...page.seo, canonical: ''}} global={global.seo} />
+      <Header content={page.header}>
         <ul className="lg:text-right">
-          {socials.map(({ name, url }, index) => {
+          {page.socials.map(({ name, url }, index) => {
             return (
               <li
                 className={`leading-none ${revealClass}`}
@@ -49,7 +45,7 @@ const Home = ({
   )
 }
 
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const { data } = await client.query({
     query: gql`
       query {
@@ -67,12 +63,36 @@ export const getStaticProps = async () => {
             name
             url
           }
+          seo {
+            title
+            description
+            thumbnail {
+              url
+            }
+          }
+        }
+        global {
+          seo {
+            title
+            twitter
+            thumbnail {
+              url
+            }
+            favicon {
+              url
+            }
+          }
         }
       }
     `
   })
 
-  return { props: { home: data.home } }
+  return {
+    props: {
+      page: data.home,
+      global: data.global
+    }
+  }
 }
 
 export default Home
