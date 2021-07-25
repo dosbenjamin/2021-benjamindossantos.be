@@ -1,29 +1,38 @@
 import { gql } from '@apollo/client'
 import client from '../apollo-client'
+import { GetStaticProps } from 'next'
+import Layout from '../components/Layout'
 import Header, { HeaderType } from '../components/Header'
-import SEO, { SEOGlobalType, SEOPageType } from '../components/SEO'
+import SEO, { SEOSiteType, SEOPageType } from '../components/SEO'
 
 type Props = {
+  site: {
+    seo: SEOSiteType
+  }
   page: {
     header: HeaderType,
     seo: SEOPageType
-  },
-  global: {
-    seo: SEOGlobalType
   }
 }
 
-const NotFound = ({ page, global }: Props) => (
+const NotFound = ({ site, page }: Props) => (
   <>
     <SEO
-      page={{...page.seo, canonical: '/404', noIndex: true, noFollow: true}}
-      global={global.seo}
+      page={{
+        ...page.seo,
+        canonical: '/404',
+        noIndex: true,
+        noFollow: true
+      }}
+      site={site.seo}
     />
-    <Header content={page.header} />
+    <Layout>
+      <Header content={page.header} />
+    </Layout>
   </>
 )
 
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const { data } = await client.query({
     query: gql`
       query {
@@ -52,9 +61,6 @@ export const getStaticProps = async () => {
             thumbnail {
               url
             }
-            favicon {
-              url
-            }
           }
         }
       }
@@ -63,8 +69,8 @@ export const getStaticProps = async () => {
 
   return {
     props: {
-      page: data.notFound,
-      global: data.global
+      site: data.global,
+      page: data.notFound
     }
   }
 }
