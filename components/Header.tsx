@@ -1,6 +1,6 @@
-import Link, { LinkType } from '../Link'
+import Link, { LinkType } from './Link'
 import parse, { domToReact } from 'html-react-parser'
-import { useReveal } from '../../hooks/useReveal'
+import { useReveal } from '../hooks/useReveal'
 import { useEffect } from 'react'
 
 export type HeaderType = {
@@ -31,7 +31,12 @@ const Header = ({
     }
   })
 
-  useEffect(() => setReveal(true), [])
+  useEffect(() => {
+    setTimeout(
+      () => setReveal(true),
+      500
+    )
+  }, [])
 
   return (
     <section className="flex flex-col items-start w-full space-y-4 lg:space-y-0 lg:flex-row">

@@ -1,5 +1,13 @@
 import { NextSeo } from 'next-seo'
 
+export type SEOSiteType = {
+  title: string
+  twitter?: string
+  thumbnail?: {
+    url: string
+  }
+}
+
 export type SEOPageType = {
   title: string
   description: string
@@ -11,30 +19,15 @@ export type SEOPageType = {
   }
 }
 
-export type SEOGlobalType = {
-  title: string
-  thumbnail?: {
-    url: string
-  }
-  favicon?: {
-    url: string
-  }
-  twitter?: string
-}
-
 type Props = {
   children?: JSX.Element | JSX.Element[]
+  site: SEOSiteType
   page: SEOPageType
-  global: SEOGlobalType
 }
 
-const SEO = ({
-  children,
-  page,
-  global
-}: Props) => (
+const SEO = ({ site, page }: Props) => (
   <NextSeo
-    title={`${page.title} - ${global.title}`}
+    title={`${page.title} - ${site.title}`}
     description={page.description}
     noindex={page.noIndex}
     nofollow={page.noFollow}
@@ -43,20 +36,20 @@ const SEO = ({
       url: `${process.env.PRODUCTION_URL}${page.canonical}`,
       type: 'website',
       locale: 'en_GB',
-      ...(global.title && { site_name: global.title }),
+      ...(site.title && { site_name: site.title }),
       ...(page.title && { title: page.title }),
       ...(page.description && { description: page.description }),
-      ...(global.thumbnail && {
+      ...(site.thumbnail && {
         images: [{
-          url: page.thumbnail?.url ?? global.thumbnail.url,
+          url: page.thumbnail?.url ?? site.thumbnail.url,
           width: 1200,
           height: 630
         }]
       })
     }}
     twitter={{
-      cardType: 'summary',
-      ...(global.twitter && { handle: global.twitter })
+      cardType: 'summary_large_image',
+      ...(site.twitter && { handle: site.twitter })
     }}
   />
 )
