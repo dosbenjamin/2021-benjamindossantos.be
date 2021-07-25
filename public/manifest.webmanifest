@@ -1,0 +1,14 @@
+{
+  "name": "Benjamin Dos Santos",
+  "short_name": "BDS",
+  "description": "Personal website",
+  "orientation": "portrait",
+  "display": "standalone",
+  "start_url": "/",
+  "theme_color": "#E8E8E8",
+  "background_color": "#2C2C2C",
+  "icons": [
+    { "src": "/android-chrome-192x192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "/android-chrome-512x512.png", "type": "image/png", "sizes": "512x512" }
+  ]
+}
