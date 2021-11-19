@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 import { GetStaticProps } from 'next'
 import { SocialProfileJsonLd } from 'next-seo'
-import { useEffect } from 'react'
+import { useLayoutEffect } from 'react'
 import client from '../apollo-client'
 import Header, { HeaderType } from '../components/Header'
 import Layout from '../components/Layout'
@@ -23,7 +23,7 @@ type Props = {
 const Home = ({ site, page }: Props) => {
   const { setReveal, revealClass } = useReveal()
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setTimeout(
       () => setReveal(true),
       500
@@ -41,11 +41,11 @@ const Home = ({ site, page }: Props) => {
       />
       <Layout>
         <Header content={page.header}>
-          <ul className="lg:text-right">
+          <ul className="flex flex-col space-y-1 lg:text-right">
             {site.socials.map(({ name, url }, index) => {
               return (
                 <li
-                  className={`leading-none ${revealClass}`}
+                  className={`flex items-center justify-end leading-none ${revealClass}`}
                   style={{transitionDelay: `${(index * 150) + 750}ms`}}
                   key={name}
                 >
