@@ -1,7 +1,7 @@
-import Link, { LinkType } from './Link'
 import parse, { domToReact } from 'html-react-parser'
-import { useReveal } from '../hooks/useReveal'
 import { useEffect } from 'react'
+import { useReveal } from '../hooks/useReveal'
+import Link, { LinkType } from './Link'
 
 export type HeaderType = {
   title: string
@@ -23,9 +23,11 @@ const Header = ({
 
   const cleanDesc = parse(description, {
     replace: ({ children }: any) => {
-      if (children && children[0].type === 'tag') {
+      if (children && children[1].type === 'tag') {
         const [, link] = children
-        link.attribs.class = link.tagName && 'inline-block transition-colors duration-1000 ease-out border-b-2 border-transparent hover:border-current'
+        link.attribs.class = link.tagName && 'inline-block duration-1000 ease-out link'
+        link.attribs.target = link.tagName && '_blank'
+        link.attribs.rel = link.tagName && 'noopener noreferer'
       }
       return <>{domToReact(children)}</>
     }

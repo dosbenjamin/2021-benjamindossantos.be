@@ -1,13 +1,13 @@
 import { gql } from '@apollo/client'
-import client from '../apollo-client'
 import { GetStaticProps } from 'next'
-import Layout from '../components/Layout'
-import Header, { HeaderType } from '../components/Header'
-import Link, { LinkType } from '../components/Link'
-import SEO, { SEOSiteType, SEOPageType } from '../components/SEO'
-import { useReveal } from '../hooks/useReveal'
-import { useEffect } from 'react'
 import { SocialProfileJsonLd } from 'next-seo'
+import { useEffect } from 'react'
+import client from '../apollo-client'
+import Header, { HeaderType } from '../components/Header'
+import Layout from '../components/Layout'
+import Link, { LinkType } from '../components/Link'
+import SEO, { SEOPageType, SEOSiteType } from '../components/SEO'
+import { useReveal } from '../hooks/useReveal'
 
 type Props = {
   site: {

@@ -13,7 +13,7 @@ type LinkProps = Omit<LinkType, 'name'> & {
 const Link = ({ children, url, className }: LinkProps) => {
   return (
     <NextLink href={url}>
-      <a className={`inline-block text-sm transition-colors duration-1000 ease-out border-b-2 border-transparent hover:border-current ${className}`}>
+      <a className={`inline-block text-sm transform-gpu transition-transform duration-1000 ease-out ${className || ''} link`}>
         {children}
       </a>
     </NextLink>

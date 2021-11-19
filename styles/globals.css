@@ -20,11 +20,25 @@
   body {
     @apply bg-grey-450;
     @apply antialiased leading-none uppercase text-grey-900 font-body;
+    font-variation-settings: 'wght' 400;
     text-rendering: optimizeLegibility;
   }
 
   ::selection {
     @apply text-white;
     @apply bg-grey-900;
+  }
+
+  .link {
+    @apply relative;
+    @apply after:content-[''];
+    @apply after:absolute after:bottom-[-1px] after:inset-x-0;
+    @apply after:w-full after:h-[2px];
+    @apply after:bg-grey-900;
+    @apply after:transform-gpu after:transition-transform after:scale-x-0 after:ease-in-out after:origin-right after:duration-500;
+  }
+
+  .link:hover {
+    @apply after:scale-x-100 after:origin-left;
   }
 }
