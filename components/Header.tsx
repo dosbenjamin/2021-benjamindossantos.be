@@ -23,7 +23,7 @@ const Header = ({
 
   const cleanDesc = parse(description, {
     replace: ({ children }: any) => {
-      if (children && children[1].type === 'tag') {
+      if (children && children[1]?.type === 'tag') {
         const [, link] = children
         link.attribs.class = link.tagName && 'inline-block duration-1000 ease-out link'
         link.attribs.target = link.tagName && '_blank'

@@ -1,9 +1,9 @@
 import { gql } from '@apollo/client'
-import client from '../apollo-client'
 import { GetStaticProps } from 'next'
-import Layout from '../components/Layout'
+import client from '../apollo-client'
 import Header, { HeaderType } from '../components/Header'
-import SEO, { SEOSiteType, SEOPageType } from '../components/SEO'
+import Layout from '../components/Layout'
+import SEO, { SEOPageType, SEOSiteType } from '../components/SEO'
 
 type Props = {
   site: {
