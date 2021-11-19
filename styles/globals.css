@@ -31,7 +31,6 @@
 
   .link {
     @apply relative;
-    @apply after:content-[''];
     @apply after:absolute after:bottom-[-1px] after:inset-x-0;
     @apply after:w-full after:h-[2px];
     @apply after:bg-grey-900;
